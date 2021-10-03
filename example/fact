@@ -1,0 +1,28 @@
+    1
+    IN
+    ABS
+    count
+    SAVE
+    fact
+    CALL
+    DROP
+    OUTN
+    HALT
+
+:fact
+    count
+    LOAD
+    DUP
+    done
+    BRZ
+    MUL
+    count
+    LOAD
+    1
+    SUB
+    count
+    SAVE
+    fact
+    CALL
+:done RET
+:count 0
