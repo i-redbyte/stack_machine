@@ -1,3 +1,6 @@
+; Summing a sequence of numbers
+; Reading and sum numbers from the console until 0 is entered
+
 :loop IN
     DUP
     exit

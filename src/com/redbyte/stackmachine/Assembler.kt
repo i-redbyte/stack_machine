@@ -61,8 +61,6 @@ class Assembler(private val source: ArrayList<String>) {
 
     private fun first() {
         when (tokenType) {
-            TT_EOL -> {
-            }
             TT_LABEL -> {
                 st.putSymbol(token, loc)
                 tokenType = getToken()
@@ -90,8 +88,7 @@ class Assembler(private val source: ArrayList<String>) {
                 tokenType = getToken()
                 second()
             }
-            TT_EOL, TT_CODE, TT_DATA -> {
-            }
+            TT_EOL, TT_CODE, TT_DATA -> Unit
             TT_ERROR -> errorCount++
         }
     }
@@ -156,19 +153,14 @@ class Assembler(private val source: ArrayList<String>) {
     }
 
     private fun isValidLabel(lbl: String): Boolean {
-        when (passNumber) {
-            1 -> {
-                if (lbl.isEmpty()) {
-                    error("label expected")
-                    return false
-                }
-                if (st.lookupSymbol(lbl)) {
-                    error("duplicated label")
-                    return false
-                }
-            }
-            2 -> {
-            }
+        if (passNumber != 1) return true
+        if (lbl.isEmpty()) {
+            error("label expected")
+            return false
+        }
+        if (st.lookupSymbol(lbl)) {
+            error("duplicated label")
+            return false
         }
         return true
     }

@@ -1,10 +1,9 @@
 package com.redbyte.stackmachine
 
 import java.util.HashMap
-import com.redbyte.stackmachine.OpcodeTable
 
 class OpcodeTable {
-    private val optable: MutableMap<String, Int?> = HashMap()
+    private val optable: MutableMap<String, Int> = HashMap()
 
     init {
         optable["DUP"] = -1
@@ -41,17 +40,11 @@ class OpcodeTable {
         optable["HALT"] = -40
     }
 
-    fun isMnemonic(mnemo: String): Boolean {
-        return optable[mnemo] != null
-    }
+    fun isMnemonic(mnemo: String): Boolean = optable.containsKey(mnemo)
 
-    fun getOpcode(mnemo: String): Int {
-        return if (optable[mnemo] != null) {
-            optable[mnemo]!!
-        } else UNDEFCODE
-    }
+    fun getOpcode(mnemo: String): Int = optable[mnemo] ?: UNDEF_CODE
 
     companion object {
-        const val UNDEFCODE = -255
+        const val UNDEF_CODE: Int = -255
     }
 }

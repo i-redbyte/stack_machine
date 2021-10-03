@@ -5,25 +5,21 @@ import java.util.TreeMap
 typealias Entries = MutableMap<String, Int>
 
 class SymbolTable {
+
     init {
         symtable = TreeMap()
     }
-    fun lookupSymbol(name: String): Boolean {
-        return symtable[name] != null
-    }
+
+    fun lookupSymbol(name: String): Boolean = symtable[name] != null
 
     fun putSymbol(name: String, value: Int) {
-        if (!lookupSymbol(name)) {
-            symtable[name] = value
-        }
+        if (lookupSymbol(name)) return
+        symtable[name] = value
     }
 
     fun getValue(name: String): Int {
-        return if (lookupSymbol(name)) {
-            symtable[name]!!
-        } else {
-            UNDEFSYMBOL
-        }
+        if (lookupSymbol(name).not()) return UNDEFSYMBOL
+        return symtable[name] ?: UNDEFSYMBOL
     }
 
     fun printSymtable() {

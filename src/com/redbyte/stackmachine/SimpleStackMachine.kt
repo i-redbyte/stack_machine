@@ -10,16 +10,25 @@ import kotlin.system.exitProcess
 class SimpleStackMachine {
     private val source = ArrayList<String>()
     private val fileName: String
-        private get() {
+        get() {
             val `in` = Scanner(System.`in`)
             print("Source file name: ")
             val fn = `in`.nextLine().trim { it <= ' ' }
-            if (fn.length == 0) {
+            if (fn.isEmpty()) {
                 println("Empty source file name")
                 exitProcess(0)
             }
             return fn
         }
+
+    init {
+        loadSource(fileName)
+        if (source.isEmpty()) {
+            println("Nothing to compile: empty source file")
+            exitProcess(0)
+        }
+        Assembler(source)
+    }
 
     private fun loadSource(fn: String) {
         try {
@@ -30,7 +39,7 @@ class SimpleStackMachine {
                     str = br.readLine()
                 }
             }
-        } catch (ioex: IOException) {
+        } catch (io: IOException) {
             println("Nothing to compile: source file not found")
             exitProcess(0)
         }
@@ -46,12 +55,4 @@ class SimpleStackMachine {
         }
     }
 
-    init {
-        loadSource(fileName)
-        if (source.isEmpty()) {
-           println("Nothing to compile: empty source file")
-            exitProcess(0)
-        }
-        Assembler(source)
-    }
 }

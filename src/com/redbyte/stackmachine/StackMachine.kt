@@ -4,6 +4,8 @@ import java.lang.IndexOutOfBoundsException
 import java.util.*
 import kotlin.system.exitProcess
 
+private const val MEMORY_SIZE = 65536
+
 class StackMachine(private val obj: ArrayList<Int>) {
     private val memory = IntArray(MEMORY_SIZE)
     private val dstack = IntArray(256)
@@ -13,7 +15,6 @@ class StackMachine(private val obj: ArrayList<Int>) {
     private var rsp = -1
     private var pc = 0
     private var cycles = 0
-    private val symb = SymbolTable()
 
     init {
         if (obj.size > MEMORY_SIZE) {
@@ -35,13 +36,13 @@ class StackMachine(private val obj: ArrayList<Int>) {
     }
 
     private fun run() {
-        var command = 0
-        var buffer = 0
+        var command: Int
+        var buffer: Int
         println("Run...")
         try {
             while (true) {
                 command = memory[pc++]
-                ++cycles
+                cycles++
                 if (command >= 0) {
                     dstack[++dsp] = command
                     continue
@@ -194,10 +195,6 @@ class StackMachine(private val obj: ArrayList<Int>) {
         println("   rsp = $rsp")
         println("    pc = $pc")
         println("cycles = $cycles")
-    }
-
-    companion object {
-        const val MEMORY_SIZE = 65536
     }
 
 }
