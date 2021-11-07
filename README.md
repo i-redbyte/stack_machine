@@ -13,6 +13,14 @@ I got the main idea from the book "The Stack, or Traveling There and Back"
 - [Examples](/info/examples.md)
 - [Opcodes](/info/opcodes.md)
 
+## How run?
+
+Example:
+
+- run SimpleStackMachine.kt
+- input [path]/file_name, for example: ./example/sequence_sum
+- press "Enter" :)
+
 ## Contribution guide
 
 Feel free to contribute :)
